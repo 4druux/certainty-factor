@@ -188,7 +188,7 @@ export default function ModalDetailKonsultasi({ isOpen, onClose, konsultasi }) {
           <motion.div
             className={`relative flex flex-col bg-background shadow-2xl border-border ${
               isMobile
-                ? "w-full max-h-[95vh] rounded-t-2xl border-t"
+                ? "w-full h-[90dvh] rounded-t-2xl border-t"
                 : "w-full max-w-4xl max-h-[90vh] rounded-xl border"
             }`}
             variants={ModalVariants}

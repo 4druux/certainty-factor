@@ -54,23 +54,21 @@ export default function SapaanDinamis() {
 
   return (
     <CardContent>
-      <div className="flex items-center justify-between">
+      <div className="flex items-start md:items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl md:text-3xl text-foreground font-medium mb-1 flex items-center gap-2">
-            <waktuInfo.Icon className="w-8 h-8" />
+          <h1 className="text-md md:text-2xl text-foreground font-semibold mb-1 flex items-center gap-2">
+            <waktuInfo.Icon className="w-5 h-5 md:w-8 md:h-8" />
             {waktuInfo.pesan}!
           </h1>
-          <p className="text-foreground">
+          <p className="text-xs md:text-md text-foreground ">
             Selamat datang di Sistem Pakar Pemilihan KB
           </p>
-          <p className="text-sm mt-2 font-medium bg-black/10 dark:bg-white/10 px-3 py-2 backdrop-blur-xl rounded-full inline-block">
+          <p className="text-xs mt-2 font-medium bg-black/10 dark:bg-white/10 px-2 py-1 md:px-4 md:py-2 backdrop-blur-xl rounded-full inline-block">
             {waktuInfo.waktu}
           </p>
         </div>
 
-        <div className="hidden md:block">
-          <Stethoscope className="w-20 h-20 text-foreground" />
-        </div>
+        <Stethoscope className="w-14 h-14 md:w-20 md:h-20 text-foreground" />
       </div>
     </CardContent>
   );

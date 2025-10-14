@@ -23,14 +23,14 @@ export default function Layout({ children }) {
 
   const navigationItems = [
     {
-      href: "/dashboard",
-      label: "Dashboard & Riwayat",
-      icon: <LayoutDashboard className="w-5 h-5" />,
-    },
-    {
       href: "/",
       label: "Kuesioner Baru",
       icon: <FilePlus2 className="w-5 h-5" />,
+    },
+    {
+      href: "/dashboard",
+      label: "Dashboard & Riwayat",
+      icon: <LayoutDashboard className="w-5 h-5" />,
     },
   ];
 
@@ -59,7 +59,7 @@ export default function Layout({ children }) {
             <div className="flex flex-shrink-0 items-center pb-4">
               <Link href="/" className="flex items-center gap-3 group">
                 <div className="flex-shrink-0 bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <Stethoscope className="w-6 h-6 text-primary" />
+                  <Stethoscope className="w-6 h-6" />
                 </div>
                 <div>
                   <h1 className="text-base font-bold text-foreground">
@@ -69,7 +69,7 @@ export default function Layout({ children }) {
                 </div>
               </Link>
             </div>
-            <hr className="border border-border"/>
+            <hr className="dark:border-neutral-800" />
 
             <nav className="mt-4 flex-1 space-y-2">
               {navigationItems.map((item) => (
@@ -88,7 +88,7 @@ export default function Layout({ children }) {
               ))}
             </nav>
             <div className="flex-shrink-0">
-              <hr className="mb-4 border border-border" />
+              <hr className="dark:border-neutral-800 mb-2" />
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="flex items-center w-full px-3 py-2.5 text-sm font-semibold rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -111,14 +111,14 @@ export default function Layout({ children }) {
       <header className="lg:hidden sticky top-0 p-4 z-40">
         <div className="flex items-center justify-between border-b border-border rounded-full bg-white/10 backdrop-blur-lg dark:bg-black/10 px-4 py-2">
           <Link href="/" className="flex items-center gap-3">
-            <Stethoscope className="w-6 h-6 text-primary" />
+            <Stethoscope className="w-6 h-6" />
             <h1 className="text-base font-bold text-foreground">
               Sistem Pakar KB
             </h1>
           </Link>
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2  rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="p-2 rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? (
@@ -144,7 +144,7 @@ export default function Layout({ children }) {
               key={item.href}
               href={item.href}
               className={`flex-1 flex flex-col items-center py-2.5 px-1 text-xs font-medium transition-colors ${
-                isActive(item.href) ? "text-primary" : " hover:text-primary"
+                isActive(item.href) ? "text-foreground" : "text-neutral-500"
               }`}
             >
               {item.icon}

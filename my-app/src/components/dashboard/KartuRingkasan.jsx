@@ -1,21 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Target, GaugeCircle, History } from "lucide-react";
-import {
-  getKonsultasiTerakhir,
-  getStatistikKonsultasi,
-} from "@/lib/riwayat.js";
 import CardContent from "@/components/ui/card-content.jsx";
+import { useRiwayat } from "@/lib/hooks";
 
 export default function KartuRingkasan() {
-  const [konsultasiTerakhir, setKonsultasiTerakhir] = useState(null);
-  const [statistik, setStatistik] = useState(null);
+  const { riwayat, isLoading } = useRiwayat();
 
-  useEffect(() => {
-    setKonsultasiTerakhir(getKonsultasiTerakhir());
-    setStatistik(getStatistikKonsultasi());
-  }, []);
+  const totalKonsultasi = riwayat?.length || 0;
+  const konsultasiTerakhir = riwayat?.[0];
+  const rekomendasiUtama = konsultasiTerakhir?.hasil?.[0] || null;
 
   const formatTanggal = (isoString) => {
     if (!isoString) return "Belum ada riwayat";
@@ -27,10 +21,31 @@ export default function KartuRingkasan() {
     });
   };
 
+  if (isLoading && !riwayat) {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        {[...Array(3)].map((_, i) => (
+          <CardContent key={i} className="animate-pulse">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-24 mb-2"></div>
+                <div className="h-7 bg-neutral-200 dark:bg-neutral-700 rounded w-16 mb-2"></div>
+                <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-32"></div>
+              </div>
+              <div className="p-3 rounded-lg bg-neutral-200 dark:bg-neutral-700">
+                <div className="w-8 h-8"></div>
+              </div>
+            </div>
+          </CardContent>
+        ))}
+      </div>
+    );
+  }
+
   const kartuData = [
     {
       judul: "Rekomendasi Utama",
-      nilai: konsultasiTerakhir?.rekomendasiUtama?.nama || "Belum ada",
+      nilai: rekomendasiUtama?.nama || "Belum ada",
       deskripsi: konsultasiTerakhir
         ? "Dari konsultasi terakhir"
         : "Lakukan konsultasi",
@@ -40,8 +55,8 @@ export default function KartuRingkasan() {
     },
     {
       judul: "Tingkat Keyakinan",
-      nilai: konsultasiTerakhir?.rekomendasiUtama?.persentase
-        ? `${konsultasiTerakhir.rekomendasiUtama.persentase}%`
+      nilai: rekomendasiUtama?.persentase
+        ? `${rekomendasiUtama.persentase}%`
         : "N/A",
       deskripsi: "Akurasi rekomendasi",
       icon: <GaugeCircle className="w-8 h-8" />,
@@ -50,8 +65,8 @@ export default function KartuRingkasan() {
     },
     {
       judul: "Total Konsultasi",
-      nilai: statistik?.totalKonsultasi || 0,
-      deskripsi: formatTanggal(konsultasiTerakhir?.tanggal),
+      nilai: totalKonsultasi,
+      deskripsi: formatTanggal(konsultasiTerakhir?.createdAt),
       icon: <History className="w-8 h-8" />,
       warna: "text-purple-600 dark:text-purple-400",
       latar: "bg-purple-50 dark:bg-purple-900/20",
@@ -59,19 +74,23 @@ export default function KartuRingkasan() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
       {kartuData.map((kartu, index) => (
         <CardContent key={index}>
-          <div className="flex items-start justify-between">
+          <div className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-medium mb-1">{kartu.judul}</h3>
-              <p className="text-2xl font-bold">{kartu.nilai}</p>
+              <p className="text-md md:text-xl font-medium mb-1">
+                {kartu.nilai}
+              </p>
+              <p className="text-xs md:text-sm text-foreground/80">
+                {kartu.deskripsi}
+              </p>
             </div>
             <div className={`p-3 rounded-lg ${kartu.latar}`}>
               <div className={kartu.warna}>{kartu.icon}</div>
             </div>
           </div>
-          <p className="text-sm mt-4">{kartu.deskripsi}</p>
         </CardContent>
       ))}
     </div>

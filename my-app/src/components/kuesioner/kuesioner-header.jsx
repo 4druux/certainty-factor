@@ -4,25 +4,23 @@ import CardContent from "@/components/ui/card-content";
 export default function KuesionerHeader() {
   return (
     <CardContent>
-      <div className="flex items-center justify-between">
-          <div>
-        <h1 className="text-2xl md:text-3xl text-foreground font-medium mb-1">
-          Sistem Pakar Pemilihan Jenis KB
-        </h1>
+      <div className="flex items-start md:items-center justify-between gap-2">
+        <div>
+          <h1 className="text-md md:text-2xl text-foreground font-semibold mb-1">
+            Sistem Pakar Pemilihan Jenis KB
+          </h1>
 
-        <p className="text-sm leading-relaxed max-w-2xl mx-auto">
-          Sistem ini akan membantu Anda menemukan jenis KB (Keluarga Berencana)
-          yang paling sesuai dengan kondisi kesehatan dan kebutuhan Anda
-          menggunakan metode{" "}
-          <span className="font-semibold text-indigo-600">
-            Certainty Factor.
-          </span>
-        </p>
-        <div className="bg-indigo-200 dark:bg-indigo-600/20 text-white px-4 py-2 rounded-full inline-block mt-2">
-          <span className="text-sm font-semibold text-indigo-800 dark:text-indigo-300">
+          <p className="text-xs md:text-sm md:leading-relaxed max-w-2xl mx-auto">
+            Sistem ini akan membantu Anda menemukan jenis KB (Keluarga
+            Berencana) yang paling sesuai dengan kondisi kesehatan dan kebutuhan
+            Anda menggunakan metode{" "}
+            <span className="font-semibold text-indigo-600">
+              Certainty Factor.
+            </span>
+          </p>
+          <p className="bg-indigo-200 dark:bg-indigo-600/20 text-xs font-semibold text-indigo-800 dark:text-indigo-300 px-2 py-1 md:px-4 md:py-2 rounded-full inline-block mt-2">
             Klinik Annisa Medika Serpong
-          </span>
-        </div>
+          </p>
         </div>
 
         <div className="hidden md:block">

@@ -1,17 +1,17 @@
 "use client";
 
-import GrafikRekomendasi from "@/components/dashboard/GrafikRekomendasi";
-import KartuRingkasan from "@/components/dashboard/KartuRingkasan";
 import SapaanDinamis from "@/components/dashboard/SapaanDinamis";
+import KartuRingkasan from "@/components/dashboard/KartuRingkasan";
+import GrafikTotalRekomendasi from "@/components/dashboard/GrafikTotalRekomendasi";
 import TabelRiwayat from "@/components/dashboard/TabelRiwayat";
 
 export default function DashboardPage() {
   return (
     <div className="bg-background md:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-4 md:space-y-6 px-4">
         <SapaanDinamis />
         <KartuRingkasan />
-        <GrafikRekomendasi />
+        <GrafikTotalRekomendasi />
         <TabelRiwayat />
       </div>
     </div>

@@ -163,7 +163,7 @@ export default function TabelRiwayat() {
                 <div
                   key={konsultasi.id}
                   onClick={() => handleLihatDetail(konsultasi)}
-                  className="p-4 border border-border rounded-xl bg-background transition-colors active:bg-neutral-200 dark:bg-neutral-700/50 cursor-pointer"
+                  className="p-4 border border-border rounded-xl bg-background transition-colors cursor-pointer"
                 >
                   <div className="flex justify-between items-start">
                     <div>
@@ -233,7 +233,7 @@ export default function TabelRiwayat() {
                     <tr
                       key={konsultasi.id}
                       onClick={() => handleLihatDetail(konsultasi)}
-                      className="hover:bg-neutral-200 dark:bg-neutral-700/50 transition-colors cursor-pointer"
+                      className="hover:bg-background transition-colors cursor-pointer"
                     >
                       <td className="py-4 px-4 text-foreground whitespace-nowrap">
                         {formatTanggal(konsultasi.tanggal)}

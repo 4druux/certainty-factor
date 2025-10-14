@@ -205,7 +205,7 @@ export default function ModalDetailKonsultasi({ isOpen, onClose, konsultasi }) {
             }}
           >
             {isMobile && (
-              <div className="w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto my-2 cursor-grab active:cursor-grabbing" />
+              <div className="w-12 h-6 bg-neutral-300 dark:bg-neutral-700 rounded-full mx-auto my-2 cursor-grab active:cursor-grabbing" />
             )}
 
             <div className="flex items-center justify-between p-4 md:p-6 border-b border-border flex-shrink-0">

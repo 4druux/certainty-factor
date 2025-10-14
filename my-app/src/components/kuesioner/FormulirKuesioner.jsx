@@ -66,19 +66,19 @@ export default function FormulirKuesioner() {
     setError("");
   };
 
-  const handleAutofill = () => {
-    const autoAnswers = {};
-    KRITERIA.forEach((kriteria) => {
-      if (kriteria.pilihan && kriteria.pilihan.length > 0) {
-        const randomIndex = Math.floor(Math.random() * kriteria.pilihan.length);
-        autoAnswers[kriteria.id] = kriteria.pilihan[randomIndex];
-      }
-    });
+  // const handleAutofill = () => {
+  //   const autoAnswers = {};
+  //   KRITERIA.forEach((kriteria) => {
+  //     if (kriteria.pilihan && kriteria.pilihan.length > 0) {
+  //       const randomIndex = Math.floor(Math.random() * kriteria.pilihan.length);
+  //       autoAnswers[kriteria.id] = kriteria.pilihan[randomIndex];
+  //     }
+  //   });
 
-    setJawabanPengguna(autoAnswers);
-    setHasilRekomendasi(null);
-    setError("");
-  };
+  //   setJawabanPengguna(autoAnswers);
+  //   setHasilRekomendasi(null);
+  //   setError("");
+  // };
 
   const renderPertanyaan = (kriteria) => {
     const nilai = jawabanPengguna[kriteria.id] || "";
@@ -157,7 +157,7 @@ export default function FormulirKuesioner() {
           </div>
         )}
 
-        {process.env.NODE_ENV === "development" && (
+        {/* {process.env.NODE_ENV === "development" && (
           <button
             onClick={handleAutofill}
             className="w-full py-2 text-sm md:text-md border border-yellow-500 text-yellow-500 font-semibold rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors duration-200 flex items-center justify-center"
@@ -166,7 +166,7 @@ export default function FormulirKuesioner() {
             <Sparkle className="w-5 h-5 mr-2" />
             Isi Otomatis
           </button>
-        )}
+        )} */}
 
         <div className="flex items-center justify-center gap-2">
           {(hasilRekomendasi || Object.keys(jawabanPengguna).length > 0) && (

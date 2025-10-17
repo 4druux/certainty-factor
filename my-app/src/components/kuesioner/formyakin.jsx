@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { KRITERIA } from "../../data/basis-pengetahuan.js";
-import { hitungRekomendasi, validasiJawaban } from "../../lib/logika-cf.js";
+import { KRITERIA } from "../../data/basis-yakin";
+import { hitungRekomendasi, validasiJawaban } from "../../lib/logika-yakin";
 import HasilRekomendasi from "./HasilRekomendasi.jsx";
 import { ClipboardList, Loader2, Sparkle } from "lucide-react";
 import { RiErrorWarningFill } from "react-icons/ri";
 import CardContent from "../ui/card-content.jsx";
 
-export default function FormulirKuesioner() {
+export default function Formyakin() {
   const [jawabanPengguna, setJawabanPengguna] = useState({});
   const [hasilRekomendasi, setHasilRekomendasi] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +42,6 @@ export default function FormulirKuesioner() {
         setHasilRekomendasi(hasil);
 
         if (hasil && hasil.length >= 0) {
-          // Kirim meski tidak ada rekomendasi
           await fetch("/api/riwayat", {
             method: "POST",
             headers: {
@@ -90,43 +89,18 @@ export default function FormulirKuesioner() {
         <label className="block text-md md:text-lg font-medium mb-2 md:mb-4">
           {kriteria.pertanyaan}
         </label>
-        {kriteria.tipe === "radio" ? (
-          <div className="space-y-3">
-            {kriteria.pilihan.map((pilihan) => (
-              <label
-                key={pilihan}
-                className="flex items-center cursor-pointer group"
-              >
-                <input
-                  type="radio"
-                  name={kriteria.id}
-                  value={pilihan}
-                  checked={nilai === pilihan}
-                  onChange={(e) =>
-                    handleJawabanChange(kriteria.id, e.target.value)
-                  }
-                  className="w-3 h-3 md:w-4 md:h-4 accent-sky-600"
-                />
-                <span className="ml-1 md:ml-3 text-sm md:text-md text-neutral-700 group-hover:text-neutral-900 dark:text-neutral-300 dark:group-hover:text-neutral-200 transition-colors">
-                  {pilihan}
-                </span>
-              </label>
-            ))}
-          </div>
-        ) : (
-          <select
-            value={nilai}
-            onChange={(e) => handleJawabanChange(kriteria.id, e.target.value)}
-            className="w-full p-3 border border-border rounded-lg focus:ring-1 focus:ring-sky-500 transition-colors text-neutral-700 dark:text-neutral-300"
-          >
-            <option value="">-- Pilih jawaban --</option>
-            {kriteria.pilihan.map((pilihan) => (
-              <option key={pilihan} value={pilihan}>
-                {pilihan}
-              </option>
-            ))}
-          </select>
-        )}
+        <select
+          value={nilai}
+          onChange={(e) => handleJawabanChange(kriteria.id, e.target.value)}
+          className="w-full p-3 border border-border rounded-lg focus:ring-1 focus:ring-sky-500 transition-colors text-neutral-700 dark:text-neutral-300"
+        >
+          <option value="">-- Pilih jawaban --</option>
+          {kriteria.pilihan.map((pilihan) => (
+            <option key={pilihan} value={pilihan}>
+              {pilihan}
+            </option>
+          ))}
+        </select>
       </div>
     );
   };

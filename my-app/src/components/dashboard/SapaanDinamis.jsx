@@ -56,7 +56,7 @@ export default function SapaanDinamis() {
     <CardContent>
       <div className="flex items-start md:items-center justify-between gap-2">
         <div>
-          <h1 className="text-md md:text-2xl text-foreground font-semibold mb-1 flex items-center gap-2">
+          <h1 className="text-md md:text-xl text-foreground font-semibold mb-1 flex items-center gap-2">
             <waktuInfo.Icon className="w-5 h-5 md:w-8 md:h-8" />
             {waktuInfo.pesan}!
           </h1>

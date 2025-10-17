@@ -36,17 +36,19 @@ export default function HasilRekomendasi({ hasil }) {
 
   return (
     <div className="mt-8">
-      <div className="rounded-xl border-l-4 border-indigo-400 bg-indigo-50 p-4 md:p-6 dark:border-indigo-600 dark:bg-indigo-950/30">
-        <div className="flex items-center gap-4 text-indigo-800 dark:text-indigo-500">
+      <div className="rounded-xl border-l-4 border-sky-400 bg-sky-50 p-4 md:p-6 dark:border-sky-600 dark:bg-sky-950/30">
+        <div className="flex items-center gap-4 text-sky-800 dark:text-sky-500">
           <div className="hidden md:block">
-            <div className="rounded-xl bg-indigo-100 p-4 dark:bg-indigo-500/10">
+            <div className="rounded-xl bg-sky-100 p-4 dark:bg-sky-500/10">
               <Lightbulb className="w-8 h-8" />
             </div>
           </div>
 
           <div className="flex flex-col items-start">
-            <h2 className="text-md md:text-xl font-semibold">Hasil Rekomendasi KB</h2>
-            <p className="text-xs md:text-sm text-indigo-700 dark:text-indigo-400">
+            <h2 className="text-md md:text-xl font-semibold">
+              Hasil Rekomendasi KB
+            </h2>
+            <p className="text-xs md:text-sm text-sky-700 dark:text-sky-400">
               Berdasarkan analisis menggunakan metode Certainty Factor, berikut
               adalah rekomendasi jenis KB yang paling sesuai dengan kondisi
               Anda.
@@ -94,14 +96,14 @@ export default function HasilRekomendasi({ hasil }) {
         ))}
       </div>
 
-      <div className="mt-6 border rounded-xl border-indigo-400 bg-indigo-50 p-4 md:p-6 dark:border-indigo-600 dark:bg-indigo-950/30">
-        <div className="flex items-start text-indigo-800 dark:text-indigo-500">
+      <div className="mt-6 border rounded-xl border-sky-400 bg-sky-50 p-4 md:p-6 dark:border-sky-600 dark:bg-sky-950/30">
+        <div className="flex items-start text-sky-800 dark:text-sky-500">
           <div className="hidden md:block">
             <Info className="w-7 h-7 mt-1 mr-4 flex-shrink-0" />
           </div>
           <div>
             <h4 className="font-semibold mb-2 text-lg">Catatan Penting</h4>
-            <ul className="text-indigo-700 dark:text-indigo-400 space-y-2 text-xs md:text-sm list-disc list-inside">
+            <ul className="text-sky-700 dark:text-sky-400 space-y-2 text-xs md:text-sm list-disc list-inside">
               <li>
                 Hasil ini adalah rekomendasi sistem berdasarkan data yang Anda
                 berikan.

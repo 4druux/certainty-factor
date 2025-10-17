@@ -36,7 +36,14 @@ export const KRITERIA = [
     id: "G01",
     pertanyaan: "Apakah usia Anda di bawah 20 tahun?",
     tipe: "radio",
-    pilihan: ["Ya", "Tidak"],
+    pilihan: [
+      "Sangat Yakin",
+      "Yakin",
+      "Cukup Yakin",
+      "Kurang Yakin",
+      "Tidak Tahu",
+      "Tidak",
+    ],
   },
   {
     id: "G02",
@@ -143,7 +150,13 @@ export const KRITERIA = [
 ];
 
 export const ATURAN_CF = [
-  { kriteriaId: "G01", jawaban: "Ya", kbId: "KB01", cfPakar: 0.6 },
+  { kriteriaId: "G01", jawaban: "Sangat Yakin", kbId: "KB01", cfPakar: 1 },
+  { kriteriaId: "G01", jawaban: "Yakin", kbId: "KB01", cfPakar: 0.8 },
+  { kriteriaId: "G01", jawaban: "Cukup Yakin", kbId: "KB01", cfPakar: 0.6 },
+  { kriteriaId: "G01", jawaban: "Kurang Yakin", kbId: "KB01", cfPakar: 0.4 },
+  { kriteriaId: "G01", jawaban: "Tidak Tahu", kbId: "KB01", cfPakar: 0.2 },
+  { kriteriaId: "G01", jawaban: "Tidak", kbId: "KB01", cfPakar: 0 },
+
   { kriteriaId: "G02", jawaban: "Ya", kbId: "KB04", cfPakar: 0.7 },
   { kriteriaId: "G02", jawaban: "Ya", kbId: "KB05", cfPakar: 0.7 },
   { kriteriaId: "G03", jawaban: "Ya", kbId: "KB04", cfPakar: 0.4 },

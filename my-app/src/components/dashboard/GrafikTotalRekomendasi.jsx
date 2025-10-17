@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { useRiwayat } from "@/lib/hooks";
 import { useTheme } from "next-themes";
-import { BarChart, Frown } from "lucide-react";
+import { BarChart, BarChart3, Frown } from "lucide-react";
 import CardContent from "@/components/ui/card-content";
 import { JENIS_KB } from "@/data/basis-pengetahuan";
 
@@ -131,11 +131,15 @@ export default function GrafikTotalRekomendasi() {
 
   return (
     <CardContent>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-foreground">
-          Statistik Rekomendasi Keseluruhan
-        </h2>
-        <div className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 md:mb-6 gap-1">
+        <div className="flex items-center gap-1 md:gap-2">
+          <BarChart3 className="w-5 h-5 md:w-6 md:h-6" />
+          <h2 className="text-md md:text-xl font-semibold text-foreground">
+            Statistik Rekomendasi
+          </h2>
+        </div>
+
+        <div className="text-xs font-semibold text-sky-600 dark:text-sky-400">
           * Dari semua riwayat
         </div>
       </div>
@@ -147,7 +151,7 @@ export default function GrafikTotalRekomendasi() {
           height={350}
         />
       </div>
-      <div className="mt-4 text-center">
+      <div className="md:mt-4 text-center">
         <p className="text-sm text-foreground/80">
           Grafik menunjukkan frekuensi setiap jenis KB direkomendasikan di semua
           sesi konsultasi.

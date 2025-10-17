@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,4 +15,19 @@
     --foreground: 0, 0%, 96%;
     --border: 0 0% 14.9%;
   }
+}
+
+@keyframes bounce-delay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.prata-regular {
+  font-family: "Prata", serif;
 }

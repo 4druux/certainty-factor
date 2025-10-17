@@ -212,7 +212,7 @@ export default function ModalDetailKonsultasi({ isOpen, onClose, konsultasi }) {
               <div className="flex items-center gap-3 text-foreground">
                 <ListCollapse className="w-8 h-8 md:w-10 md:h-10" />
                 <div>
-                  <h3 className="text-md md:text-2xl font-semibold">
+                  <h3 className="text-md md:text-xl font-semibold">
                     Detail Konsultasi
                   </h3>
                   <p className="text-xs">{formatTanggal(konsultasi.tanggal)}</p>

@@ -6,7 +6,7 @@ export default function KuesionerHeader() {
     <CardContent>
       <div className="flex items-start md:items-center justify-between gap-2">
         <div>
-          <h1 className="text-md md:text-2xl text-foreground font-semibold mb-1">
+          <h1 className="text-md md:text-xl text-foreground font-semibold mb-1">
             Sistem Pakar Pemilihan Jenis KB
           </h1>
 
@@ -14,11 +14,11 @@ export default function KuesionerHeader() {
             Sistem ini akan membantu Anda menemukan jenis KB (Keluarga
             Berencana) yang paling sesuai dengan kondisi kesehatan dan kebutuhan
             Anda menggunakan metode{" "}
-            <span className="font-semibold text-indigo-600">
+            <span className="font-semibold text-sky-600">
               Certainty Factor.
             </span>
           </p>
-          <p className="bg-indigo-200 dark:bg-indigo-600/20 text-xs font-semibold text-indigo-800 dark:text-indigo-300 px-2 py-1 md:px-4 md:py-2 rounded-full inline-block mt-2">
+          <p className="bg-sky-200 dark:bg-sky-600/20 text-xs font-semibold text-sky-800 dark:text-sky-300 px-2 py-1 md:px-4 md:py-2 rounded-full inline-block mt-2">
             Klinik Annisa Medika Serpong
           </p>
         </div>

@@ -6,14 +6,14 @@ import { useRiwayat } from "@/lib/hooks";
 import { useTheme } from "next-themes";
 import { BarChart, BarChart3, Frown } from "lucide-react";
 import CardContent from "@/components/ui/card-content";
-import { JENIS_KB } from "@/data/basis-pengetahuan";
+import { JENIS_KB } from "@/data/basis-yakin";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const KB_COLORS = {
   "Pil KB": "#F89B78",
   "KB Suntik 1 Bulan": "#B6A6E9",
-  "KB Suntik 3 Bulan": "#AFDC8F",
+  "Kondom": "#AFDC8F",
   "IUD (Spiral)": "#9AD8D8",
   "Implan (Susuk KB)": "#92C5F9",
 };

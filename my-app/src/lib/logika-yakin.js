@@ -1,4 +1,4 @@
-import { ATURAN_CF, JENIS_KB } from "../data/basis-pengetahuan.js";
+import { ATURAN_CF, JENIS_KB } from "../data/basis-yakin.js";
 
 const userCfMap = {
   "Sangat Yakin": 1.0,

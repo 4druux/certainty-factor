@@ -42,7 +42,6 @@ export default function FormulirKuesioner() {
         setHasilRekomendasi(hasil);
 
         if (hasil && hasil.length >= 0) {
-          // Kirim meski tidak ada rekomendasi
           await fetch("/api/riwayat", {
             method: "POST",
             headers: {

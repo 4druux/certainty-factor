@@ -13,9 +13,9 @@ export const JENIS_KB = [
   },
   {
     id: "KB03",
-    nama: "KB Suntik 3 Bulan",
+    nama: "Kondom",
     deskripsi:
-      "Suntikan hormonal yang diberikan setiap tiga bulan sekali. Sangat praktis untuk yang tidak ingin repot.",
+      "Alat kontrasepsi penghalang yang mencegah sperma bertemu sel telur. Efektif jika digunakan dengan benar setiap kali berhubungan.",
   },
   {
     id: "KB04",
@@ -49,103 +49,125 @@ export const KRITERIA = [
   },
   {
     id: "G02",
-    pertanyaan: "Apakah Anda sudah memiliki anak?",
+    pertanyaan: "Apakah usia anda diatas 35 tahun?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G03",
-    pertanyaan: "Apakah Anda belum memiliki anak?",
+    pertanyaan: "Apakah Anda sudah memiliki anak??",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G04",
-    pertanyaan: "Apakah Anda sedang dalam masa menyusui?",
+    pertanyaan: "Apakah Anda belum memiliki anak?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G05",
-    pertanyaan: "Apakah Anda memiliki tekanan darah tinggi?",
+    pertanyaan: "Apakah Anda sedang dalam masa menyusui?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G06",
-    pertanyaan: "Apakah Anda memiliki riwayat migrain?",
+    pertanyaan: "Apakah Anda memiliki tekanan darah tinggi (hipertensi)?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G07",
     pertanyaan:
-      "Apakah Anda ingin menggunakan KB untuk jangka panjang (lebih dari 2 tahun)?",
+      "Apakah Anda memiliki riwayat migrain atau sering mengalami sakit kepala berat?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G08",
     pertanyaan:
-      "Apakah Anda ingin menggunakan KB untuk jangka pendek (kurang dari 2 tahun)?",
+      "Apakah Anda memiliki gangguan pada organ hati (misalnya hepatitis atau penyakit hati lainnya)?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G09",
-    pertanyaan: "Apakah Anda tidak ingin efek samping hormonal?",
+    pertanyaan: "Apakah Anda mengalami anemia atau kekurangan darah?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G10",
-    pertanyaan: "Apakah Anda mengalami menstruasi yang tidak teratur?",
+    pertanyaan: "Apakah menstruasi Anda tidak teratur setiap bulannya?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G11",
     pertanyaan:
-      "Apakah Anda takut dengan prosedur medis invasif (pemasangan alat)?",
+      "Apakah Anda sering mengalami nyeri haid yang berat (dismenore)?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G12",
-    pertanyaan: "Apakah Anda sering lupa minum obat setiap hari?",
+    pertanyaan:
+      "Apakah Anda menginginkan metode KB jangka panjang (misalnya lebih dari 1 tahun)?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G13",
     pertanyaan:
-      "Apakah Anda memiliki alergi terhadap logam (khususnya tembaga)?",
+      "Apakah Anda menginginkan metode KB jangka pendek (yang bisa dihentikan kapan saja)?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G14",
-    pertanyaan: "Apakah Anda takut dengan jarum suntik?",
+    pertanyaan:
+      "Apakah Anda menginginkan metode KB jangka pendek (yang bisa dihentikan kapan saja)?",
+    tipe: "radio",
+    pilihan: pilihanJawaban,
+  },
+  {
+    id: "G15",
+    pertanyaan: "Apakah Anda takut terhadap jarum suntik?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G16",
     pertanyaan:
-      "Apakah Anda ingin bisa hamil lagi dengan cepat setelah berhenti KB?",
+      "Apakah Anda takut terhadap prosedur invasif, seperti pemasangan alat di dalam tubuh (contohnya spiral/IUD atau implan)?",
+    tipe: "radio",
+    pilihan: pilihanJawaban,
+  },
+  {
+    id: "G17",
+    pertanyaan:
+      "Apakah Anda tidak ingin menggunakan KB yang mengandung hormon karena khawatir efek sampingnya",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G18",
     pertanyaan:
-      "Apakah Anda sering mengalami siklus haid yang sangat berat atau nyeri?",
+      "Apakah Anda memiliki alergi terhadap logam, seperti bahan yang terdapat pada spiral (IUD tembaga)?",
+    tipe: "radio",
+    pilihan: pilihanJawaban,
+  },
+  {
+    id: "G19",
+    pertanyaan: "Apakah Anda memiliki berat badan berlebih (obesitas)?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },
   {
     id: "G20",
-    pertanyaan: "Apakah Anda memprioritaskan efektivitas yang sangat tinggi?",
+    pertanyaan:
+      "Apakah Anda memiliki aktivitas yang padat atau sering bepergian, sehingga membutuhkan metode KB yang praktis?",
     tipe: "radio",
     pilihan: pilihanJawaban,
   },

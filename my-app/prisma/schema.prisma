@@ -11,6 +11,11 @@ datasource db {
 model Konsultasi {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+
+  nama      String
+  umur      Int
+  alamat    String   @db.Text
+
   jawaban   Json
   hasil     Json
 }

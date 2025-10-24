@@ -11,8 +11,9 @@ import {
   CheckCircle2,
   Frown,
   ListCollapse,
+  User,
 } from "lucide-react";
-import { KRITERIA } from "../data/basis-pengetahuan.js";
+import { KRITERIA } from "../data/basis-yakin.js";
 import {
   getConfidenceProgressColor,
   getConfidenceTextColor,
@@ -24,7 +25,7 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 const KB_COLORS = {
   "Pil KB": "#3b82f6",
   "KB Suntik 1 Bulan": "#8b5cf6",
-  "KB Suntik 3 Bulan": "#ec4899",
+  Kondom: "#ec4899",
   "IUD (Spiral)": "#10b981",
   "Implan (Susuk KB)": "#f59e0b",
 };
@@ -228,7 +229,7 @@ export default function ModalDetailKonsultasi({ isOpen, onClose, konsultasi }) {
             </div>
 
             <div className="overflow-y-auto p-4 md:p-6 flex flex-col md:flex-row gap-8">
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-8 md:w-1/2">
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <BarChart3 className="w-5 h-5 " />
@@ -301,34 +302,78 @@ export default function ModalDetailKonsultasi({ isOpen, onClose, konsultasi }) {
                 </div>
               </div>
 
-              <div className="space-y-3 md:max-h-[calc(80vh-150px)] md:overflow-y-auto">
-                <div className="flex items-center gap-3 mb-4">
-                  <ListChecks className="w-5 h-5 " />
-                  <h4 className="text-lg font-semibold text-foreground">
-                    Jawaban Anda
-                  </h4>
+              <div className="flex flex-col gap-8 md:w-1/2 md:pr-2">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <User className="w-5 h-5 " />
+                    <h4 className="text-lg font-semibold text-foreground">
+                      Data Pengguna
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                      <h6 className="text-sm font-medium mb-1 text-muted-foreground">
+                        Nama Lengkap
+                      </h6>
+                      <p className="text-sm text-foreground font-semibold">
+                        {konsultasi.dataDiri?.nama || "-"}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                      <h6 className="text-sm font-medium mb-1 text-muted-foreground">
+                        Umur
+                      </h6>
+                      <p className="text-sm text-foreground font-semibold">
+                        {konsultasi.dataDiri?.umur
+                          ? `${konsultasi.dataDiri.umur} tahun`
+                          : "-"}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-muted/50 rounded-lg border border-border">
+                      <h6 className="text-sm font-medium mb-1 text-muted-foreground">
+                        Alamat
+                      </h6>
+                      <p className="text-sm text-foreground font-semibold break-words">
+                        {konsultasi.dataDiri?.alamat || "-"}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  {KRITERIA.map((kriteria) => {
-                    const jawaban = konsultasi.jawaban?.[kriteria.id];
-                    if (!jawaban) return null;
-                    return (
-                      <div
-                        key={kriteria.id}
-                        className="p-3 bg-muted/50 rounded-lg border border-border"
-                      >
-                        <h6 className="text-sm font-medium mb-1">
-                          {kriteria.pertanyaan}
-                        </h6>
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                          <p className="text-sm text-foreground font-semibold">
-                            {jawaban}
-                          </p>
+
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <ListChecks className="w-5 h-5 " />
+                    <h4 className="text-lg font-semibold text-foreground">
+                      Jawaban Anda
+                    </h4>
+                  </div>
+                  <div className="space-y-3 md:max-h-[460px] md:overflow-y-auto">
+                    {KRITERIA.map((kriteria) => {
+                      const jawaban = konsultasi.jawaban?.[kriteria.id];
+                      if (
+                        !jawaban ||
+                        kriteria.id === "G01" ||
+                        kriteria.id === "G02"
+                      )
+                        return null;
+                      return (
+                        <div
+                          key={kriteria.id}
+                          className="p-3 bg-muted/50 rounded-lg border border-border"
+                        >
+                          <h6 className="text-sm font-medium mb-1">
+                            {kriteria.pertanyaan}
+                          </h6>
+                          <div className="flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                            <p className="text-sm text-foreground font-semibold">
+                              {jawaban}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

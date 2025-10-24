@@ -63,7 +63,7 @@ export default function Home() {
         animate="visible"
         variants={containerVariants}
       >
-        <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-6 md:gap-10 w-full">
+        <section className="flex flex-col-reverse md:flex-row items-center justify-between md:gap-10 w-full">
           <motion.div variants={itemVariants}>
             <motion.h1
               className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2"
@@ -101,7 +101,7 @@ export default function Home() {
 
           <motion.div variants={itemVariants}>
             <Image
-              src="/kb.png"
+              src="/kb-2.png"
               alt="Ilustrasi Keluarga Berencana"
               width={400}
               height={400}

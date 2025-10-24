@@ -22,7 +22,8 @@ const SkeletonLoader = () => (
           <div className="flex justify-between items-start mb-3">
             <div className="space-y-2">
               <div className="h-5 w-40 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
-              <div className="h-4 w-48 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="h-4 w-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+              <div className="h-3 w-48 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
             </div>
             <div className="w-4 h-4 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
           </div>
@@ -33,14 +34,26 @@ const SkeletonLoader = () => (
     <div className="overflow-x-auto hidden md:block">
       <div className="w-full text-sm">
         <div className="flex border-b border-border">
-          <div className="py-3.5 px-4 flex-1">
-            <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+          <div className="py-3.5 px-4 w-12">
+            <div className="h-5 w-8 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+          </div>
+          <div className="py-3.5 px-4 flex-[2]">
+            <div className="h-5 w-24 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+          </div>
+          <div className="py-3.5 px-4 w-16">
+            <div className="h-5 w-10 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+          </div>
+          <div className="py-3.5 px-4 flex-[3]">
+            <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+          </div>
+          <div className="py-3.5 px-4 flex-[3]">
+            <div className="h-5 w-36 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+          </div>
+          <div className="py-3.5 px-4 flex-[3]">
+            <div className="h-5 w-36 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
           </div>
           <div className="py-3.5 px-4 flex-[2]">
             <div className="h-5 w-32 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
-          </div>
-          <div className="py-3.5 px-4 flex-[2]">
-            <div className="h-5 w-36 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
           </div>
           <div className="py-3.5 px-4 w-28 text-center">
             <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse mx-auto"></div>
@@ -49,14 +62,26 @@ const SkeletonLoader = () => (
         <div className="divide-y divide-border">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="flex items-center">
-              <div className="py-4 px-4 flex-1">
-                <div className="h-5 w-40 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+              <div className="py-4 px-4 w-12">
+                <div className="h-5 w-8 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
               </div>
               <div className="py-4 px-4 flex-[2]">
+                <div className="h-5 w-3/5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+              </div>
+              <div className="py-4 px-4 w-16">
+                <div className="h-5 w-10 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+              </div>
+              <div className="py-4 px-4 flex-[3]">
+                <div className="h-5 w-4/5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+              </div>
+              <div className="py-4 px-4 flex-[3]">
+                <div className="h-5 w-4/5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+              </div>
+              <div className="py-4 px-4 flex-[3]">
                 <div className="h-5 w-4/5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
               </div>
               <div className="py-4 px-4 flex-[2]">
-                <div className="h-5 w-4/5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
+                <div className="h-5 w-3/5 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse"></div>
               </div>
               <div className="py-4 px-4 w-28 text-center">
                 <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-700 rounded animate-pulse mx-auto"></div>
@@ -78,6 +103,7 @@ export default function TabelRiwayat() {
     if (!dataRiwayat) return [];
     return dataRiwayat.map((item) => ({
       ...item,
+      dataDiri: item.dataDiri || {},
       tanggal: item.createdAt,
       rekomendasiUtama:
         Array.isArray(item.hasil) && item.hasil.length > 0
@@ -159,7 +185,7 @@ export default function TabelRiwayat() {
         ) : (
           <div>
             <div className="space-y-2 md:hidden">
-              {riwayat.map((konsultasi) => (
+              {riwayat.map((konsultasi, index) => (
                 <div
                   key={konsultasi.id}
                   onClick={() => handleLihatDetail(konsultasi)}
@@ -168,10 +194,13 @@ export default function TabelRiwayat() {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">
+                        {index + 1}. {konsultasi.dataDiri?.nama || "Anonim"}
+                      </h3>
+                      <p className="text-sm text-primary font-medium">
                         {konsultasi.rekomendasiUtama?.nama ||
                           "Tidak ada rekomendasi"}
-                      </h3>
-                      <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                      </p>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1.5 mt-1">
                         <Calendar className="w-3 h-3" />
                         {formatTanggal(konsultasi.tanggal)}
                       </p>
@@ -214,8 +243,17 @@ export default function TabelRiwayat() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
+                    <th className="text-left py-3.5 px-4 font-semibold w-12">
+                      No
+                    </th>
                     <th className="text-left py-3.5 px-4 font-semibold">
-                      Tanggal
+                      Nama
+                    </th>
+                    <th className="text-left py-3.5 px-4 font-semibold w-16">
+                      Umur
+                    </th>
+                    <th className="text-left py-3.5 px-4 font-semibold">
+                      Alamat
                     </th>
                     <th className="text-left py-3.5 px-4 font-semibold">
                       Rekomendasi Teratas
@@ -223,24 +261,40 @@ export default function TabelRiwayat() {
                     <th className="text-left py-3.5 px-4 font-semibold">
                       Tingkat Keyakinan
                     </th>
+                    <th className="text-left py-3.5 px-4 font-semibold">
+                      Tanggal
+                    </th>
                     <th className="text-center py-3.5 px-4 font-semibold">
                       Aksi
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {riwayat.map((konsultasi) => (
+                  {riwayat.map((konsultasi, index) => (
                     <tr
                       key={konsultasi.id}
                       onClick={() => handleLihatDetail(konsultasi)}
                       className="hover:bg-background transition-colors cursor-pointer"
                     >
                       <td className="py-4 px-4 text-foreground whitespace-nowrap">
-                        {formatTanggal(konsultasi.tanggal)}
+                        {index + 1}
+                      </td>
+                      <td className="py-4 px-4 text-foreground font-medium">
+                        {konsultasi.dataDiri?.nama || "-"}
+                      </td>
+                      <td className="py-4 px-4 text-foreground whitespace-nowrap">
+                        {konsultasi.dataDiri?.umur || "-"}
+                      </td>
+                      <td className="py-4 px-4 text-foreground truncate max-w-[200px]">
+                        {konsultasi.dataDiri?.alamat || "-"}
                       </td>
                       <td className="py-4 px-4">
                         <div className="flex items-center">
-                          <div className="w-2.5 h-2.5 bg-primary rounded-full mr-3 flex-shrink-0"></div>
+                          <div
+                            className={`w-2.5 h-2.5 ${getConfidenceProgressColor(
+                              konsultasi.rekomendasiUtama?.persentase || 0
+                            )} rounded-full mr-3 flex-shrink-0`}
+                          ></div>
                           <div>
                             <div className="font-semibold text-foreground">
                               {konsultasi.rekomendasiUtama?.nama ||
@@ -270,6 +324,9 @@ export default function TabelRiwayat() {
                             ></div>
                           </div>
                         </div>
+                      </td>
+                      <td className="py-4 px-4 text-foreground whitespace-nowrap">
+                        {formatTanggal(konsultasi.tanggal)}
                       </td>
                       <td className="py-4 px-4">
                         <div className="flex items-center justify-center space-x-2 text-muted-foreground">

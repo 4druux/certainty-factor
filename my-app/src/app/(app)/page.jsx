@@ -56,7 +56,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-background min-h-screen md:p-8">
+    <div className="bg-global-famili min-h-screen md:p-8 lg:pt-10">
       <motion.main
         className="max-w-7xl mx-auto px-4"
         initial="hidden"
@@ -134,7 +134,7 @@ export default function Home() {
             {featureCards.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-card border border-border p-6 rounded-xl text-center flex flex-col items-center"
+                className="bg-white dark:bg-black border border-border p-6 rounded-xl text-center flex flex-col items-center"
                 variants={itemVariants}
                 whileHover={{
                   y: -5,
@@ -170,7 +170,7 @@ export default function Home() {
           <div className="mt-6 md:mt-12 grid md:grid-cols-3 gap-4 lg:gap-6 text-left">
             <motion.div
               variants={itemVariants}
-              className="relative p-6 border border-border rounded-xl"
+              className="relative p-6 border border-border rounded-xl bg-white dark:bg-black"
             >
               <div className="absolute -top-3 -left-3 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-white w-10 h-10 rounded-full flex items-center justify-center text-md md:text-lg">
                 1
@@ -186,7 +186,7 @@ export default function Home() {
 
             <motion.div
               variants={itemVariants}
-              className="relative p-6 border border-border rounded-xl"
+              className="relative p-6 border border-border rounded-xl bg-white dark:bg-black"
             >
               <div className="absolute -top-3 -left-3 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-white w-10 h-10 rounded-full flex items-center justify-center text-md md:text-lg">
                 2
@@ -202,7 +202,7 @@ export default function Home() {
 
             <motion.div
               variants={itemVariants}
-              className="relative p-6 border border-border rounded-xl"
+              className="relative p-6 border border-border rounded-xl bg-white dark:bg-black"
             >
               <div className="absolute -top-3 -left-3 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-white w-10 h-10 rounded-full flex items-center justify-center text-md md:text-lg">
                 3

@@ -31,3 +31,12 @@
 .prata-regular {
   font-family: "Prata", serif;
 }
+
+.bg-global-famili {
+  background-image: url("/Famili.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

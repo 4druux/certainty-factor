@@ -37,7 +37,7 @@ export default function MainLayout({ children, isAdmin }) {
   }, [isSidebarOpen]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Sidebar
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -45,7 +45,7 @@ export default function MainLayout({ children, isAdmin }) {
       />
       <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <main
-        className={clsx("pt-20 lg:pt-24 transition-all duration-300", {
+        className={clsx("pt-20 lg:pt-0 transition-all duration-300", {
           "lg:ml-64": isSidebarOpen,
         })}
       >

@@ -55,7 +55,7 @@ export default function Formyakin() {
     if (!dataPengguna.umur) {
       newFieldErrors.umur = "Umur wajib diisi.";
     } else {
-      const umur = parseInt(dataPengguna.umur, 10);  // convert bilangan desimal
+      const umur = parseInt(dataPengguna.umur, 10);
       if (isNaN(umur) || umur <= 0) {
         newFieldErrors.umur = "Umur harus berupa angka yang valid.";
       }

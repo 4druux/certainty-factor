@@ -10,12 +10,14 @@ import {
   Home,
   FileText,
   LogIn,
+  ClipboardList,
 } from "lucide-react";
 import DotLoader from "./dot-loader";
 
 export default function Sidebar({ isOpen, toggleSidebar, isAdmin }) {
   const pathname = usePathname();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (isLoggingOut) {
@@ -50,15 +52,20 @@ export default function Sidebar({ isOpen, toggleSidebar, isAdmin }) {
       label: "Dashboard & Riwayat",
       icon: <LayoutDashboard className="w-5 h-5" />,
     },
+    {
+      href: "/kriteria",
+      label: "Manajemen Kriteria",
+      icon: <ClipboardList className="w-5 h-5" />,
+    },
   ];
 
+  const adminRoutes = ["/dashboard", "/kriteria"];
   const filteredNavItems = navigationItems.filter((item) => {
-    if (item.href === "/dashboard") {
+    if (adminRoutes.includes(item.href)) {
       return isAdmin;
     }
     return true;
   });
-  const router = useRouter();
 
   const isActive = (href) => pathname.startsWith(href) && href !== "/";
 

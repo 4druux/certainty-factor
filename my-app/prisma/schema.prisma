@@ -12,12 +12,11 @@ model Konsultasi {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
-  nama      String
-  umur      Int
-  alamat    String   @db.Text
-
-  jawaban   Json
-  hasil     Json
+  nama    String
+  umur    Int
+  alamat  String   @db.Text
+  jawaban Json
+  hasil   Json
 }
 
 model Admin {
@@ -25,4 +24,37 @@ model Admin {
   username  String   @unique
   password  String
   createdAt DateTime @default(now())
+}
+
+
+model JenisKb {
+  id        String   @id 
+  nama      String
+  deskripsi String   @db.Text
+  aturan    AturanCf[]
+}
+
+model Kriteria {
+  id         String   @id 
+  pertanyaan String   @db.Text
+  tipe       String 
+  pilihan    Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  aturan     AturanCf[]
+}
+
+model AturanCf {
+  id         String   @id @default(cuid())
+  kriteriaId String
+  kriteria   Kriteria @relation(fields: [kriteriaId], references: [id], onDelete: Cascade)
+  jawaban    String
+  kbId       String
+  jenisKb    JenisKb  @relation(fields: [kbId], references: [id], onDelete: Cascade)
+  cfPakar    Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([kriteriaId])
+  @@index([kbId])
 }

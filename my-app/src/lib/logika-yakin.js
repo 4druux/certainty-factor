@@ -1,5 +1,3 @@
-import { ATURAN_CF, JENIS_KB } from "../data/basis-yakin.js";
-
 const userCfMap = {
   "Sangat Yakin": 1.0,
   Yakin: 0.8,
@@ -19,7 +17,12 @@ function combineCF(cf1, cf2) {
   }
 }
 
-export function hitungRekomendasi(jawabanPengguna) {
+export function hitungRekomendasi(jawabanPengguna, ATURAN_CF, JENIS_KB) {
+  if (!jawabanPengguna || !ATURAN_CF || !JENIS_KB) {
+    console.error("Data (aturan, jenisKb) tidak lengkap untuk perhitungan.");
+    return [];
+  }
+
   const cfKombinasi = {};
   JENIS_KB.forEach((kb) => {
     cfKombinasi[kb.id] = 0;

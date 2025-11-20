@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { hitungRekomendasi, validasiJawaban } from "../../lib/logika-yakin.js";
 import HasilRekomendasi from "./HasilRekomendasi.jsx";
-import { ClipboardList, Loader2, Sparkle } from "lucide-react";
+import { ClipboardList, Loader2, Sparkle, BookOpenCheck } from "lucide-react";
 import { RiErrorWarningFill } from "react-icons/ri";
 import CardContent from "../ui/card-content.jsx";
 import DotLoader from "../ui/dot-loader.jsx";
@@ -38,15 +38,9 @@ export default function FormulirKuesioner() {
           fetch("/api/aturan-cf"),
         ]);
 
-        if (!kriteriaRes.ok) {
-          throw new Error(`Gagal memuat kriteria: ${kriteriaRes.statusText}`);
-        }
-        if (!jenisKbRes.ok) {
-          throw new Error(`Gagal memuat jenis KB: ${jenisKbRes.statusText}`);
-        }
-        if (!aturanCfRes.ok) {
-          throw new Error(`Gagal memuat aturan CF: ${aturanCfRes.statusText}`);
-        }
+        if (!kriteriaRes.ok) throw new Error("Gagal memuat kriteria");
+        if (!jenisKbRes.ok) throw new Error("Gagal memuat jenis KB");
+        if (!aturanCfRes.ok) throw new Error("Gagal memuat aturan CF");
 
         const kriteriaData = await kriteriaRes.json();
         const jenisKbData = await jenisKbRes.json();
@@ -68,25 +62,54 @@ export default function FormulirKuesioner() {
 
   const handleDataPenggunaChange = (e) => {
     const { name, value } = e.target;
-    setDataPengguna((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    if (fieldErrors[name]) {
+    setDataPengguna((prev) => ({ ...prev, [name]: value }));
+    if (fieldErrors[name])
       setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
     if (error) setError("");
   };
 
   const handleJawabanChange = (kriteriaId, jawaban) => {
-    setJawabanPengguna((prev) => ({
-      ...prev,
-      [kriteriaId]: jawaban,
-    }));
-    if (fieldErrors[kriteriaId]) {
+    setJawabanPengguna((prev) => ({ ...prev, [kriteriaId]: jawaban }));
+    if (fieldErrors[kriteriaId])
       setFieldErrors((prev) => ({ ...prev, [kriteriaId]: undefined }));
-    }
     if (error) setError("");
+  };
+
+  const handleIsiSesuaiSkripsi = () => {
+    setDataPengguna({
+      nama: "Pengguna Studi Kasus",
+      umur: "19",
+      alamat: "Jl. Skripsi No. 1",
+    });
+
+    const jawabanSkripsi = {
+      G01: "Sangat Yakin", // User: 1.0
+      G02: "Tidak", // User: 0.0
+      G03: "Tidak", // User: 0.0
+      G04: "Sangat Yakin", // User: 1.0
+      G05: "Kurang Yakin", // User: 0.4
+      G06: "Tidak Tahu", // User: 0.2
+      G07: "Kurang Yakin", // User: 0.4
+      G08: "Tidak Tahu", // User: 0.2
+      G09: "Cukup Yakin", // User: 0.6
+      G10: "Cukup Yakin", // User: 0.6
+      G11: "Kurang Yakin", // User: 0.4
+      G12: "Tidak", // User: 0.0
+      G13: "Yakin", // User: 0.8
+      G14: "Cukup Yakin", // User: 0.6
+      G15: "Yakin", // User: 0.8
+      G16: "Yakin", // User: 0.8
+      G17: "Sangat Yakin", // User: 1.0
+      G18: "Tidak Tahu", // User: 0.2
+      G19: "Kurang Yakin", // User: 0.4
+      G20: "Yakin", // User: 0.8
+    };
+
+    setJawabanPengguna(jawabanSkripsi);
+    setHasilRekomendasi(null);
+    setError("");
+    setFieldErrors({});
+    toast.success("Formulir diisi sesuai Data Uji Skripsi");
   };
 
   const handleHitungRekomendasi = () => {
@@ -94,20 +117,14 @@ export default function FormulirKuesioner() {
     setFieldErrors({});
     const newFieldErrors = {};
 
-    if (!dataPengguna.nama) {
-      newFieldErrors.nama = "Nama Lengkap wajib diisi.";
-    }
+    if (!dataPengguna.nama) newFieldErrors.nama = "Nama Lengkap wajib diisi.";
     if (!dataPengguna.umur) {
       newFieldErrors.umur = "Umur wajib diisi.";
     } else {
       const umur = parseInt(dataPengguna.umur, 10);
-      if (isNaN(umur) || umur <= 0) {
-        newFieldErrors.umur = "Umur harus berupa angka yang valid.";
-      }
+      if (isNaN(umur) || umur <= 0) newFieldErrors.umur = "Umur harus valid.";
     }
-    if (!dataPengguna.alamat) {
-      newFieldErrors.alamat = "Alamat wajib diisi.";
-    }
+    if (!dataPengguna.alamat) newFieldErrors.alamat = "Alamat wajib diisi.";
 
     const jawabanUmurOtomatis = {
       G01:
@@ -138,7 +155,7 @@ export default function FormulirKuesioner() {
 
     if (Object.keys(newFieldErrors).length > 0) {
       setFieldErrors(newFieldErrors);
-      setError("Mohon perbaiki kesalahan pada field yang ditandai.");
+      setError("Mohon lengkapi semua pertanyaan.");
       return;
     }
 
@@ -150,46 +167,22 @@ export default function FormulirKuesioner() {
         const hasil = hitungRekomendasi(jawabanLengkap, aturanCf, jenisKb);
 
         if (hasil && hasil.length >= 0) {
-          const response = await fetch("/api/riwayat", {
+          await fetch("/api/riwayat", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               dataDiri: dataPengguna,
               jawaban: jawabanLengkap,
               hasil: hasil,
             }),
           });
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            const errorMessage = errorData.error || "Gagal menyimpan data.";
-
-            toast.error(errorMessage);
-            setHasilRekomendasi(null);
-
-            if (errorMessage.toLowerCase().includes("alamat")) {
-              setFieldErrors((prev) => ({
-                ...prev,
-                alamat: errorMessage,
-              }));
-            } else {
-              setError(errorMessage);
-            }
-            return;
-          }
-
           setHasilRekomendasi(hasil);
         } else {
-          setHasilRekomendasi(hasil);
+          setHasilRekomendasi([]);
         }
       } catch (err) {
-        setHasilRekomendasi(null);
-        const networkErrorMessage = err.message || "Terjadi kesalahan koneksi.";
-        toast.error("Koneksi gagal: " + networkErrorMessage);
-        setError("Koneksi ke server gagal. Periksa jaringan Anda.");
         console.error("Error:", err);
+        toast.error("Terjadi kesalahan perhitungan.");
       } finally {
         setIsLoading(false);
       }
@@ -204,62 +197,47 @@ export default function FormulirKuesioner() {
     setFieldErrors({});
   };
 
-  const handleAutofill = () => {
-    setDataPengguna({
-      nama: "Nama Tes",
-      umur: String(Math.floor(Math.random() * (50 - 15 + 1)) + 15),
-      alamat: "Alamat Tes",
-    });
-
-    const autoAnswers = {};
-    kriteria
-      .filter((k) => k.id !== "G01" && k.id !== "G02")
-      .forEach((k) => {
-        if (k.pilihan && Array.isArray(k.pilihan) && k.pilihan.length > 0) {
-          const randomIndex = Math.floor(Math.random() * k.pilihan.length);
-          autoAnswers[k.id] = k.pilihan[randomIndex];
-        }
-      });
-
-    setJawabanPengguna(autoAnswers);
-    setHasilRekomendasi(null);
-    setError("");
-    setFieldErrors({});
-  };
-
-  const renderPertanyaan = (kriteria) => {
-    const nilai = jawabanPengguna[kriteria.id] || "";
-    const pilihanList = Array.isArray(kriteria.pilihan) ? kriteria.pilihan : [];
-    const isError = !!fieldErrors[kriteria.id];
+  const renderPertanyaan = (kriteriaItem) => {
+    const nilai = jawabanPengguna[kriteriaItem.id] || "";
+    const pilihanList = Array.isArray(kriteriaItem.pilihan)
+      ? kriteriaItem.pilihan
+      : [];
+    const isError = !!fieldErrors[kriteriaItem.id];
 
     return (
       <div
-        key={kriteria.id}
+        key={kriteriaItem.id}
         className={`p-4 md:p-6 border rounded-xl transition-colors ${
           isError ? "border-red-500/50" : "border-border"
         }`}
       >
-        <label className="block text-md md:text-lg font-medium mb-2 md:mb-4">
-          {kriteria.pertanyaan}
-        </label>
-        {kriteria.tipe === "radio" ? (
-          <div className="space-y-3">
+        <div className="flex justify-between">
+          <label className="block text-md md:text-lg font-medium mb-2 md:mb-4">
+            <span className="mr-2 font-bold text-sky-600">
+              {kriteriaItem.id}
+            </span>
+            {kriteriaItem.pertanyaan}
+          </label>
+        </div>
+
+        {kriteriaItem.tipe === "radio" ? (
+          <div className="space-y-2">
             {pilihanList.map((pilihan) => (
               <label
                 key={pilihan}
-                className="flex items-center cursor-pointer group"
+                className="flex items-center cursor-pointer group p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-lg transition-colors"
               >
                 <input
                   type="radio"
-                  name={kriteria.id}
+                  name={kriteriaItem.id}
                   value={pilihan}
                   checked={nilai === pilihan}
                   onChange={(e) =>
-                    handleJawabanChange(kriteria.id, e.target.value)
+                    handleJawabanChange(kriteriaItem.id, e.target.value)
                   }
-                  className="w-3 h-3 md:w-4 md:h-4 accent-sky-600"
+                  className="w-4 h-4 text-sky-600 focus:ring-sky-500 border-gray-300"
                 />
-                <span className="ml-1 md:ml-3 text-sm md:text-md text-neutral-700 group-hover:text-neutral-900 dark:text-neutral-300 dark:group-hover:text-neutral-200 transition-colors">
+                <span className="ml-3 text-sm md:text-md text-neutral-700 dark:text-neutral-300">
                   {pilihan}
                 </span>
               </label>
@@ -268,24 +246,22 @@ export default function FormulirKuesioner() {
         ) : (
           <select
             value={nilai}
-            onChange={(e) => handleJawabanChange(kriteria.id, e.target.value)}
-            className={`w-full p-3 border rounded-lg focus:ring-1 transition-colors text-neutral-700 dark:text-neutral-300 ${
-              isError
-                ? "border-red-500 focus:ring-red-500"
-                : "border-border focus:ring-sky-500"
-            }`}
+            onChange={(e) =>
+              handleJawabanChange(kriteriaItem.id, e.target.value)
+            }
+            className="w-full p-3 border rounded-lg"
           >
             <option value="">-- Pilih jawaban --</option>
-            {pilihanList.map((pilihan) => (
-              <option key={pilihan} value={pilihan}>
-                {pilihan}
+            {pilihanList.map((p) => (
+              <option key={p} value={p}>
+                {p}
               </option>
             ))}
           </select>
         )}
         {isError && (
           <p className="text-red-500 text-sm mt-2">
-            {fieldErrors[kriteria.id]}
+            {fieldErrors[kriteriaItem.id]}
           </p>
         )}
       </div>
@@ -294,109 +270,108 @@ export default function FormulirKuesioner() {
 
   return (
     <CardContent>
-      <div className="space-y-4 md:space-y-6">
+      <div className="space-y-6">
         <div className="rounded-lg border-l-4 border-sky-400 bg-sky-50 p-4 md:p-6 dark:border-sky-600 dark:bg-sky-950/30">
-          <div className="flex flex-col items-start">
-            <h2 className="text-md md:text-xl font-semibold text-sky-800 dark:text-sky-500">
-              Petunjuk Pengisian
-            </h2>
-            <p className="text-xs md:text-sm text-sky-700 dark:text-sky-400">
-              Isi data diri Anda, lalu jawab semua pertanyaan berikut dengan
-              jujur.
-            </p>
-          </div>
+          <h2 className="text-md md:text-xl font-semibold text-sky-800 dark:text-sky-500">
+            Petunjuk Pengisian
+          </h2>
+          <p className="text-xs md:text-sm text-sky-700 dark:text-sky-400 mt-1">
+            Isi data diri Anda, lalu jawab pertanyaan gejala yang muncul. Sistem
+            akan menghitung rekomendasi berdasarkan metode Certainty Factor.
+          </p>
         </div>
 
         {isDataLoading ? (
-          <div className="flex flex-col items-center justify-center min-h-[300px] text-neutral-600 dark:text-neutral-400">
-            <DotLoader />
+          <div className="flex flex-col items-center justify-center min-h-[300px]">
+            <DotLoader text="Memuat Pertanyaan..." />
           </div>
-        ) : error && error.startsWith("Gagal memuat") ? (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-            <div className="flex items-center">
-              <RiErrorWarningFill className="w-5 h-5 mr-2" />
-              {error}
-            </div>
+        ) : error ? (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center">
+            <RiErrorWarningFill className="w-5 h-5 mr-2" />
+            {error}
           </div>
         ) : (
           <>
-            <div className="space-y-4 p-4 md:p-6 border border-border rounded-xl">
-              <h3 className="text-lg md:text-xl font-semibold">Data Diri</h3>
-              <div className="space-y-3">
-                <div>
-                  <label
-                    htmlFor="nama"
-                    className="block text-sm font-medium mb-1 dark:text-neutral-200"
-                  >
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={handleIsiSesuaiSkripsi}
+                className="flex items-center px-4 py-2 text-sm font-medium text-emerald-700 bg-emerald-100 hover:bg-emerald-200 rounded-lg transition-colors"
+                title="Isi otomatis sesuai studi kasus Skripsi"
+              >
+                <BookOpenCheck className="w-4 h-4 mr-2" />
+                Isi Data Uji Skripsi
+              </button>
+
+              {process.env.NODE_ENV === "development" && (
+                <button
+                  onClick={() => {
+                    setDataPengguna({
+                      nama: "Test Random",
+                      umur: "25",
+                      alamat: "Test",
+                    });
+                  }}
+                  className="flex items-center px-4 py-2 text-sm font-medium text-yellow-700 bg-yellow-100 hover:bg-yellow-200 rounded-lg transition-colors"
+                >
+                  <Sparkle className="w-4 h-4 mr-2" />
+                  Isi Random
+                </button>
+              )}
+            </div>
+
+            <div className="space-y-4 p-4 md:p-6 border border-border rounded-xl bg-neutral-50/50 dark:bg-neutral-900/50">
+              <h3 className="text-lg font-semibold">Data Diri</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="col-span-2 md:col-span-1">
+                  <label className="block text-sm font-medium mb-1">
                     Nama Lengkap
                   </label>
                   <input
                     type="text"
-                    id="nama"
                     name="nama"
                     value={dataPengguna.nama}
                     onChange={handleDataPenggunaChange}
-                    className={`w-full p-3 border rounded-lg focus:ring-1 transition-colors text-neutral-700 dark:text-neutral-300 ${
-                      fieldErrors.nama
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-border focus:ring-sky-500"
-                    }`}
-                    placeholder="Masukkan nama Anda"
+                    className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                    placeholder="Nama Anda"
                   />
                   {fieldErrors.nama && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-red-500 text-xs mt-1">
                       {fieldErrors.nama}
                     </p>
                   )}
                 </div>
-                <div>
-                  <label
-                    htmlFor="umur"
-                    className="block text-sm font-medium mb-1 dark:text-neutral-200"
-                  >
-                    Umur
+                <div className="col-span-2 md:col-span-1">
+                  <label className="block text-sm font-medium mb-1">
+                    Umur (Tahun)
                   </label>
                   <input
                     type="number"
-                    id="umur"
                     name="umur"
                     value={dataPengguna.umur}
                     onChange={handleDataPenggunaChange}
-                    className={`w-full p-3 border rounded-lg focus:ring-1 transition-colors text-neutral-700 dark:text-neutral-300 ${
-                      fieldErrors.umur
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-border focus:ring-sky-500"
-                    }`}
+                    className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-sky-500 outline-none transition-all"
                     placeholder="Contoh: 25"
                   />
                   {fieldErrors.umur && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-red-500 text-xs mt-1">
                       {fieldErrors.umur}
                     </p>
                   )}
                 </div>
-                <div>
-                  <label
-                    htmlFor="alamat"
-                    className="block text-sm font-medium mb-1 dark:text-neutral-200"
-                  >
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium mb-1">
                     Alamat
                   </label>
                   <input
                     type="text"
-                    id="alamat"
                     name="alamat"
                     value={dataPengguna.alamat}
                     onChange={handleDataPenggunaChange}
-                    className={`w-full p-3 border rounded-lg focus:ring-1 transition-colors text-neutral-700 dark:text-neutral-300 ${
-                      fieldErrors.alamat
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-border focus:ring-sky-500"
-                    }`}
-                    placeholder="Masukkan alamat Anda"
+                    className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+                    placeholder="Alamat Lengkap"
                   />
                   {fieldErrors.alamat && (
-                    <p className="text-red-500 text-sm mt-1">
+                    <p className="text-red-500 text-xs mt-1">
                       {fieldErrors.alamat}
                     </p>
                   )}
@@ -404,39 +379,18 @@ export default function FormulirKuesioner() {
               </div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {kriteria
                 .filter((k) => k.id !== "G01" && k.id !== "G02")
                 .map(renderPertanyaan)}
             </div>
 
-            {error && !error.startsWith("Gagal memuat") && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg dark:bg-red-950/30 dark:border-red-700 dark:text-red-300">
-                <div className="flex items-center">
-                  <RiErrorWarningFill className="w-5 h-5 mr-2" />
-                  {error}
-                </div>
-              </div>
-            )}
-
-            {process.env.NODE_ENV === "development" && (
-              <button
-                onClick={handleAutofill}
-                className="w-full py-2 text-sm md:text-md border border-yellow-500 text-yellow-500 font-semibold rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors duration-200 flex items-center justify-center"
-                title="Hanya untuk development"
-              >
-                <Sparkle className="w-5 h-5 mr-2" />
-                Isi Otomatis
-              </button>
-            )}
-
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex gap-3 pt-4 border-t border-border">
               {(hasilRekomendasi ||
-                Object.keys(jawabanPengguna).length > 0 ||
-                dataPengguna.nama) && (
+                Object.keys(jawabanPengguna).length > 0) && (
                 <button
                   onClick={handleReset}
-                  className="py-3 w-1/2 border border-border font-semibold rounded-lg text-sm md:text-md dark:hover:bg-neutral-800 hover:bg-neutral-100 transition-colors duration-200"
+                  className="flex-1 py-3 border border-neutral-300 dark:border-neutral-700 font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 >
                   Reset
                 </button>
@@ -445,7 +399,7 @@ export default function FormulirKuesioner() {
               <button
                 onClick={handleHitungRekomendasi}
                 disabled={isLoading}
-                className="bg-sky-600 dark:bg-sky-700/50 dark:hover:bg-sky-800 hover:bg-sky-700 disabled:bg-sky-400 text-white text-sm md:text-md w-full font-semibold py-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                className="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 rounded-lg transition-all shadow-sm hover:shadow flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
@@ -455,12 +409,13 @@ export default function FormulirKuesioner() {
                 ) : (
                   <>
                     <ClipboardList className="w-5 h-5 mr-2" />
-                    Lihat Rekomendasi
+                    Lihat Hasil Rekomendasi
                   </>
                 )}
               </button>
             </div>
 
+            {/* Hasil */}
             {hasilRekomendasi && <HasilRekomendasi hasil={hasilRekomendasi} />}
           </>
         )}

@@ -123,7 +123,7 @@ export default function KriteriaTable() {
   return (
     <>
       <CardContent>
-        <div className="flex items-center justify-between mb-4 gap-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-4">
           <div className="flex items-center gap-1 md:gap-2">
             <ClipboardList className="w-5 h-5 md:w-6 md:h-6" />
             <h2 className="text-md md:text-xl font-semibold text-foreground">

@@ -58,7 +58,7 @@ export function hitungRekomendasi(jawabanPengguna, ATURAN_CF, JENIS_KB) {
 
   const hasilAkhir = JENIS_KB.map((kb) => {
     const cfValue = cfKombinasi[kb.id];
-    const persentase = Math.round(Math.abs(cfValue) * 100);
+    const persentase = parseFloat((Math.abs(cfValue) * 100).toFixed(2));
 
     return {
       nama: kb.nama,
